@@ -1,0 +1,209 @@
+from math import *
+from keyboard import *
+from turtle import *
+
+Astralbody = Turtle()
+Astralbody.hideturtle()
+Astralbody.speed(10000)
+penup()
+goto(0, 300)
+speed(0)
+Force = 0
+angle = 0
+R = 0
+ShipX = 0
+ShipY = 0
+global DeltaForce
+global radian_heading
+global Heading
+global PreviousShipX
+global PreviousShip
+global TotalForce
+global GravityX
+global GravityY
+global ScaleFactor
+global G
+DeltaForce = False
+Heading = 0
+PreviousShipX = 0
+PreviousShipY = 0
+TotalForce = 0
+Gravity = 0
+GravityX = 0
+GravityY = 0
+G = 6.67408 * 10**-11
+
+def earth():
+    Astralbody.fillcolor("Green")
+    Astralbody.begin_fill()
+    Astralbody.pencolor("Cyan")
+    global Actual_Radius_Of_Body
+    Actual_Radius_Of_Body = 6371 #km
+    global M
+    M = 5.9736 * (10**24) #kg #Actual Mass Of Body
+    Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+    Astralbody.penup()
+    Astralbody.goto(xcor(),((Simualtor_Radius_Of_Body) * -1))
+    Astralbody.pendown()
+    Astralbody.circle(Simualtor_Radius_Of_Body)
+    Astralbody.right(90)
+    Astralbody.end_fill()
+
+earth()
+
+def PhysicsEngine(Force, angle):
+
+    setheading(heading() + angle)
+    R = (sqrt((ycor() ** 2) + (xcor() ** 2))) #distance to center of astral body
+
+    global GravityX
+    global GravityY
+    global Gravity
+    global ShipX
+    global ShipY
+    global Heading
+    global PreviousShipX
+    global PreviousShipY
+    global TotalForce
+    global ScaleFactor
+
+    if R <= (Actual_Radius_Of_Body / 100):
+        G = 0
+        GravityX = 0
+        GravityY = 0
+    else:
+        G = 6.67408 * 10**-11
+
+
+
+    Gravity = (((G * M) / R ** 4) / 1000000)
+    if G == 6.67408 * 10**-11:
+        ScaleFactor = R / Gravity
+        if xcor() >= 0:
+            if ycor() >= 0:
+                GravityX = (xcor() / ScaleFactor) * -1
+                GravityY = (ycor() / ScaleFactor) * -1
+            else:
+                GravityX = (xcor() / ScaleFactor) * -1
+                GravityY = (ycor() / ScaleFactor) * -1
+        else:
+            if ycor() >= 0:
+                GravityX = (xcor() / ScaleFactor) * -1
+                GravityY = (ycor() / ScaleFactor) * -1
+            else:
+                GravityX = (xcor() / ScaleFactor) * -1
+                GravityY = (ycor() / ScaleFactor) * -1
+
+    goto(xcor() + (GravityX), ycor() + (GravityY))
+
+
+    if DeltaForce == True:
+        Heading = heading()
+        PreviousShipX = ShipX
+        PreviousShipY = ShipY
+
+    if Heading > 90:
+        if Heading > 180:
+            if Heading > 270:
+                if DeltaForce == True:
+                    radian_heading = ((360 - heading()) * pi/180)
+                    ShipY = ((round((sin(radian_heading) * Force), 2) * -1) + PreviousShipY)
+                    ShipX = ((round((cos(radian_heading) * Force), 2) *  1) + PreviousShipX)
+            else:
+                if DeltaForce == True:
+                    radian_heading = ((270 - heading()) * pi/180)
+                    ShipX = ((round((sin(radian_heading) * Force), 2) * -1) + PreviousShipX)
+                    ShipY = ((round((cos(radian_heading) * Force), 2) * -1) + PreviousShipY)
+        else:
+            if DeltaForce == True:
+                radian_heading = ((180 - heading()) * pi / 180)
+                ShipY = ((round((sin(radian_heading) * Force), 2) *  1) + PreviousShipY)
+                ShipX = ((round((cos(radian_heading) * Force), 2) * -1) + PreviousShipX)
+    else:
+        if DeltaForce == True:
+            radian_heading = ((90 - heading()) * pi / 180)
+            ShipX = ((round((sin(radian_heading) * Force), 2) *  1) + PreviousShipX)
+            ShipY = ((round((cos(radian_heading) * Force), 2) *  1) + PreviousShipY)
+
+
+    TotalForce = (sqrt((ShipX ** 2) + (ShipY ** 2)))
+    PreviousShipX = 0
+    PreviousShipY = 0
+
+
+    goto(xcor() + (ShipX), ycor() + (ShipY))
+
+while True:
+    PhysicsEngine(Force, angle)
+    DeltaForce = False
+    angle = 0
+    print()
+    print()
+    print()
+    print("Coords X:" + (str(round(xcor(), 2))) + " Y:" + (str(round(ycor(), 2))))
+    print("Heading: " + str(heading()))
+    print("Thrust Velocity: " + str(round(TotalForce, 2)))
+    print("Gravitational Velocity: " + str(round(Gravity, 2)))
+    print(GravityX)
+    print(GravityY)
+    print(R)
+    print(ScaleFactor)
+
+    if is_pressed("w"):
+        DeltaForce = True
+        PreviousShipX = 0
+        PreviousShipY = 0
+        if TotalForce <= 10:
+            Force = Force + 0.01
+        else:
+            ShipX = 0
+            ShipY = 0
+            Force = 10
+
+    if is_pressed("d"):
+        if DeltaForce == False:
+            angle = angle - 3
+        else:
+            left(-3)
+
+    if is_pressed("q"):
+        PreviousShipX = 0
+        PreviousShipY = 0
+        Force = 0
+        ShipX = 0
+        ShipY = 0
+
+    if is_pressed("a"):
+        if DeltaForce == False:
+            angle = angle + 3
+        else:
+            left(3)
+
+
+    if xcor() >= 500:
+        speed(10)
+        goto(-450,ycor())
+        speed(0)
+    if xcor() <= -500:
+        speed(10)
+        goto(450,ycor())
+        speed(0)
+    if ycor() >= 500:
+        speed(10)
+        goto(xcor(),-450)
+        speed(0)
+    if ycor() <= -500:
+        speed(10)
+        goto(xcor(), 450)
+        speed(0)
+
+    if is_pressed("e"):
+        PreviousShipX = 0
+        PreviousShipY = 0
+        Force = 0
+        ShipX = 0
+        ShipY = 0
+        GravityX = 0
+        GravityY = 0
+        setheading(0)
+        goto(0,300)
