@@ -1,0 +1,479 @@
+from turtle import *
+from random import *
+from math import *
+from time import *
+ 
+if __name__ == "__main__":
+  hideturtle()
+  speed(100000000)
+  Universe_Begin = FalseUniversal_Colour = "Purple"
+  RandColours =["yellow", "gold", "orange", "red", "maroon","violet", "magenta", "purple", "navy", "blue", "skyblue", "cyan", "turquoise", "lightgreen", "green", "darkgreen", "chocolate", "brown", "black", "gray", "white",]
+  Star_Colours = ["gold","orange","dark orange","royal blue"]
+  StarCoords = []
+
+  def Stars():
+    Stars1 = Turtle()
+    Stars2 = Turtle()
+    Stars3 = Turtle()
+    Stars4 = Turtle()
+    Stars1.speed(100000000)
+    Stars2.speed(100000000)
+    Stars3.speed(100000000)
+    Stars4.speed(100000000)
+    Stars1.color(Universal_Colour)
+    Stars2.color(Universal_Colour)
+    Stars3.color(Universal_Colour)
+    Stars4.color(Universal_Colour)
+    Stars1.hideturtle()
+    for counter in range(0,100):
+      global Star1_Y 
+      global Star1_X 
+      global Star2_Y 
+      global Star2_X 
+      global Star3_Y 
+      global Star3_X 
+      global Star4_Y 
+      global Star4_X  
+      Star1_Y = randint(0,500)
+      Star1_X = randint(0,500)
+      Star2_Y = randint(-500,0)
+      Star2_X = randint(-500,0)
+      Star3_Y = randint(0,500)
+      Star3_X = randint(-500,0)
+      Star4_Y = randint(-500,0)
+      Star4_X = randint(0,500)
+      StarCoords.append(str(Star1_X))  
+      StarCoords.append(str(Star1_Y))
+      StarCoords.append(str(Star2_X)) 
+      StarCoords.append(str(Star2_Y))
+      StarCoords.append(str(Star3_X))
+      StarCoords.append(str(Star3_Y))
+      StarCoords.append(str(Star4_X))
+      StarCoords.append(str(Star4_Y))
+      Stars1.penup()
+      Stars1.goto(Star1_X,Star1_Y)
+      Stars1.pendown()
+      Stars2.penup()
+      Stars2.goto(Star2_X,Star2_Y)
+      Stars2.pendown()
+      Stars3.penup()
+      Stars3.goto(Star3_X,Star3_Y)
+      Stars3.pendown()
+      Stars4.penup()
+      Stars4.goto(Star4_X,Star4_Y)
+      Stars4.pendown()
+      Stars1.forward(1)
+      Stars2.forward(1)
+      Stars3.forward(1)
+      Stars4.forward(1)
+    Stars1.speed(0)
+    Stars2.speed(0)
+    Stars3.speed(0)
+    Stars4.speed(0)
+    Stars1.hideturtle()
+    Stars2.hideturtle()
+    Stars3.hideturtle()
+    Stars4.hideturtle()
+
+
+  Universal_Igniton = input("Begin New Universe? Y or N: ").lower()
+
+
+  if Universal_Igniton == "y":
+    print("Nice... lets get started!")
+    Universe_Begin = True
+    Universal_Colour = "White"
+    bgcolor("black")
+    Stars()
+    G = 6.67 * 10 ** -11
+    Simualtor_Speed = 0
+    Actual_Speed = 0
+    Planets = ["Mercury", "Venus", "Earth", "Mars", "Saturn", "Jupiter", "Uranus","Neptune","Pluto"]
+
+  elif Universal_Igniton == "n":
+    Universe_Begin = False
+    print("oh okay then...")
+
+
+  elif Universal_Igniton != "y":
+    if Universal_Igniton != "n":
+      print("Okay uhm ill just my own thing then.")
+      Universe_Begin = True
+      Universal_Colour = "Black"
+      bgcolor("white")
+      Stars()
+      G = 6.67 * 10 ** -11
+      Simualtor_Speed = 0
+      Actual_Speed = 0
+      Planets = ["Mercury", "Venus", "Earth", "Mars", "Saturn", "Jupiter", "Uranus","Neptune","Pluto"]
+
+  print()
+  Launch = input("Ready to launch? Y or N: ").lower()
+
+  if Launch == "y":
+    print("Nice... heres the launch codes.")
+    pencolor("Orange")
+    showturtle()
+    print()
+    Ship = True
+  elif Launch == "n":
+    print("Just float around shipless then...")
+    print()
+    Ship = False
+
+
+  elif Launch != "y":
+    if Launch != "n":
+      print("Wait don`t press that!")
+      pencolor("Orange")
+      showturtle()
+    while True:
+      EndLoop2 = 0
+      Movement = randint(0,5)
+      Length = randint(0,80)
+      Angle = randint(0,20)
+      Colour = randint(0,20)
+      Speed = randint(0,100)
+      speed(Speed)
+      pencolor(RandColours[Colour])
+      if Movement == 0:
+        forward(Length)
+        EndLoop2= EndLoop2 + 1
+      if Movement == 1:
+        EndLoop2= EndLoop2 + 1
+        right(Angle)
+      if Movement == 2:
+        EndLoop2= EndLoop2 + 1
+        left(Angle)
+      if Movement == 3:
+        EndLoop2= EndLoop2 + 1
+        back(Length)
+      if Movement == 4:
+        EndLoop2= EndLoop2 + 1
+        circle(Angle)
+      if Movement == 5:
+        EndLoop2= EndLoop2 + 1
+        goto(0,0)
+
+
+  while Universe_Begin:
+    clear()
+    penup()
+    goto(0,0)
+    pendown()
+
+    print(StarCoords)
+    def Supernova():
+      Nova = Turtle()
+      Nova.hideturtle()
+      Random_StarX = 0
+      Random_StarY = 1
+      while True:
+        Random_Star_Colour = randint(0,3)
+        Random_Time = randint(1,40)
+        Time_Of_Nova = randint(0,Random_Time)
+        sleep(Time_Of_Nova)
+        Nova.pencolor(Star_Colours[Random_Star_Colour])
+        Nova.penup()
+        Nova.goto(int(StarCoords[Random_StarX]),int(StarCoords[Random_StarY]))
+        Nova.pendown()
+        Angle_Of_Nova = 0
+        Super_Clean_Up = 0
+        speed(5)
+        for counter in range(0,8):
+          Nova.left(Angle_Of_Nova)
+          Nova.forward(3)
+          Nova.goto(int(StarCoords[Random_StarX]),int(StarCoords[Random_StarY]))
+          Angle_Of_Nova = Angle_Of_Nova + 45
+        for counter in range(0,16):
+          Super = Turtle()
+          Super.left(90)
+          Super.pencolor("Black")
+          Super.goto(int(StarCoords[Random_StarX]),int(StarCoords[Random_StarY]))
+          Super.circle(Super_Clean_Up)
+          Super_Clean_Up = Super_Clean_Up + 2
+
+        Random_StarX = Random_StarX + 2
+        Random_StarY = Random_StarX + 1
+
+
+    def Mercury()
+      pencolor("Ivory")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 6051.8 #km
+      global Actual_Mass_Of_Body
+      Actual_Mass_Of_Body = 4.867 * (10**24) #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 4.9455514821112166e+17
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    def Earth():
+      fillcolor("Green")
+      begin_fill()
+      pencolor("Cyan")
+      global Actual_Radius_Of_Bod
+      global Actual_Mass_Of_Bod
+      Actual_Mass_Of_Body = 5.9736 * (10**24) #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90
+      end_fill()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 5.925380423623075e+17
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+    def Mars():
+      fillcolor("Sandy Brown")
+      begin_fill()
+      pencolor("Peru")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 3389.5 #km
+      global Actual_Mass_Of_Body
+      Actual_Mass_Of_Body = 6.39 * (10**23)  #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 8.46866364061067e+16
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    def Saturns_Rings():
+      left(90)
+      pencolor("gray")
+      for counter in range(0,10):
+        Rings_Height = randint(730,850)
+        penup()
+        left(90)
+        forward(Simualtor_Radius_Of_Body - Rings_Height )
+        right(90)
+        pendown()
+        circle(Rings_Height)
+        penup()
+        right(90)
+        forward(Simualtor_Radius_Of_Body - Rings_Height )
+        left(90)
+        pendown()
+
+
+    def Saturn():
+      fillcolor("pale goldenrod")
+      begin_fill()
+      pencolor("dark khaki")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 58232 #km
+      global Actual_Mass_Of_Body 
+      Actual_Mass_Of_Body = 5.683 * (10**26) #kg
+      global Simualtor_Radius_Of_Body
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      Saturns_Rings()
+      right(90)
+      global Average_Actual_Speed
+      Average_Actual_Speed = 1.9166534366301008e+19
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    def draw_oval(x,y,big_radius,small_radius,tilt):
+      up()
+      goto(x,y)
+      down()
+      seth(-45+tilt)
+      color('red')
+      circle(big_radius,90)
+      color('orange')
+      circle(small_radius,90)
+      color('red')
+      circle(big_radius,90)
+      color('dark orange')
+      circle(small_radius,90)
+
+
+    def Jupiters_Storms():
+      showturtle()
+      fillcolor("red")
+      begin_fill()
+      draw_oval(160,100,50,17,5)
+      end_fill()
+      penup()
+      goto(0,0)
+      pendown()
+      seth(0)
+      right(90)
+
+
+    def Jupiter():
+      fillcolor("PeachPuff")#aquamarinePeachPuff
+      begin_fill()
+      pencolor("khaki")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 69911 #km
+      global Actual_Mass_Of_Body
+      Actual_Mass_Of_Body = 1.898 * (10**27) #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      Jupiters_Storms()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 5.845515036957713e+19
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    def Uranus():
+      fillcolor("Light steel blue")
+      begin_fill()
+      pencolor("Light steel blue")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 25362 #km
+      global Actual_Mass_Of_Body
+      Actual_Mass_Of_Body = 8.681 * (10**25) #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 4.4165575147784284e+18
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    def Neptune():
+      fillcolor("Cornflower Blue")
+      begin_fill()
+      pencolor("Light Blue")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 24622 #km
+      global Actual_Mass_Of_Body
+      Actual_Mass_Of_Body = 1.024 * (10**26) #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 5.28616998515845e+18
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    def Pluto():
+      fillcolor("Papaya Whip")
+      begin_fill()
+      pencolor("Brown")
+      global Actual_Radius_Of_Body
+      Actual_Radius_Of_Body = 1188 #km
+      global Actual_Mass_Of_Body
+      Actual_Mass_Of_Body = 1.303 * (10**22) #kg
+      Simualtor_Radius_Of_Body = (Actual_Radius_Of_Body / 100) #is the simulated radius
+      circle(Simualtor_Radius_Of_Body)
+      right(90)
+      end_fill()
+      global Average_Actual_Speed
+      Average_Actual_Speed = 5.925380423623075e+17
+      global Added_Simualted_Speed
+      Added_Simualted_Speed = 3
+
+
+    while True:
+      print(*Planets, sep=', ')
+      Astral_Body = input("What astral body you are orbiting?: ")
+      #Astral_Body = "Insert Planet (or dwarf planets)"
+
+      hideturtle()
+      speed(100000000)
+
+      if str.capitalize(Astral_Body) != Planets[0]:
+        if str.capitalize(Astral_Body) != Planets[1]:
+          if str.capitalize(Astral_Body) != Planets[2]:
+            if str.capitalize(Astral_Body) != Planets[3]:
+              if str.capitalize(Astral_Body) != Planets[4]:
+                if str.capitalize(Astral_Body) != Planets[5]:
+                  if str.capitalize(Astral_Body) != Planets[6]:
+                    if str.capitalize(Astral_Body) != Planets[7]:
+                      if str.capitalize(Astral_Body) != Planets[8]:
+                        print()
+                        print("Pick str(1) of the Astral Bodies provided (Idris doesn`t have time to add all of them (theres alot))")
+                        print()
+                        continue
+
+      if str.capitalize(Astral_Body) == Planets[0]:
+        Mercury()
+        break
+      if str.capitalize(Astral_Body) == Planets[1]: 
+        Venus()
+        break
+      if str.capitalize(Astral_Body) == Planets[2]: 
+        Earth()
+        break
+      if str.capitalize(Astral_Body) == Planets[3]: 
+        Mars()
+        break
+      if str.capitalize(Astral_Body) == Planets[4]: 
+        Saturn()
+        break
+      if str.capitalize(Astral_Body) == Planets[5]: 
+        Jupiter()
+        break
+      if str.capitalize(Astral_Body) == Planets[6]: 
+        Uranus()
+        break
+      if str.capitalize(Astral_Body) == Planets[7]: 
+        Neptune()
+        break
+      if str.capitalize(Astral_Body) == Planets[8]: 
+        Pluto()
+        break
+
+    showturtle()
+    speed(1)              
+
+    Actual_Height_Of_Orbit = float(input("What is the height of your orbit?: "))
+    Height_From_Center_Mass = (Actual_Radius_Of_Body + Actual_Height_Of_Orbit)
+    Actual_Speed = sqrt(((G * (Actual_Mass_Of_Body**2)) / Height_From_Center_Mass))
+
+    def ship():
+      if Ship == True:
+        pencolor("Grey")
+        penup()
+        forward(Actual_Height_Of_Orbit / 10)
+        left(90)
+        showturtle()
+        pendown()
+      elif Ship == False:
+        print()
+        print("Wait you don`t have a ship... you fool.")
+
+    ship()
+
+    print()
+    print("You should increase your speed to " + str(Actual_Speed))
+
+
+    Simualtor_Speed = (((Actual_Speed + 1) / Average_Actual_Speed) + Added_Simualted_Speed)
+    Simulator_Orbit = ((Actual_Radius_Of_Body / 100) + (Actual_Height_Of_Orbit / 10))
+    print()
+
+    #Loops the orbit of the ship
+    count = 0
+    while True:
+      speed(Simualtor_Speed)
+      circle(Simulator_Orbit)
+      count = count + 1
+      if count == 4:
+        count = 0
+        if input("Try another astral body? Y or N: ").lower() == "y":
+          print()
+          break
